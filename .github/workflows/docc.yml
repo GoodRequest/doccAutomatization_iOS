@@ -17,13 +17,16 @@ permissions:
 jobs:
   build:
     #2
-    runs-on: macos-12
+    runs-on: macos-latest
     #3
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+
+      - name: Select latest Xcode version
+        run: sudo xcode-select -s /Applications/Xcode_15.0.app
       #4
       - name: Run Build Docs
         run: ./build-docc.sh
