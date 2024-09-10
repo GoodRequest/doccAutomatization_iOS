@@ -1,4 +1,3 @@
-xcode-select -s /Applications/Xcode_15.0.app
 xcrun xcodebuild docbuild \
     -scheme GoodPersistence \
     -destination 'generic/platform=iOS Simulator' \
