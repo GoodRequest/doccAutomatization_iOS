@@ -29,7 +29,19 @@ jobs:
         run: sudo xcode-select -s /Applications/Xcode_15.0.app
       #4
       - name: Run Build Docs
-        run: ./build-docc.sh
+        run: |
+          xcrun xcodebuild docbuild \
+            -scheme GoodPersistence \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath "$PWD/.derivedData"
+
+          $(xcrun --find docc) process-archive \
+            transform-for-static-hosting "$PWD/.derivedData/Build/Products/Debug-iphonesimulator/GoodPersistence.doccarchive" \
+            --output-path ".docs" \
+            --hosting-base-path "doccAutomatization_iOS"
+
+          # Create index.html to redirect to the generated documentation
+          echo '<script>window.location.href += "/documentation/goodpersistence"</script>' > .docs/index.html
       #5
       - name: Setup Pages
         id: pages
