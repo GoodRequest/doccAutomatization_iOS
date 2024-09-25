@@ -30,18 +30,22 @@ jobs:
       #4
       - name: Run Build Docs
         run: |
+          REPOSITORY_NAME="${{ github.event.repository.name }}"
+          PACKAGE_NAME="GoodPersistence"
+          PACKAGE_NAME_LOWERCASE=$(echo "$PACKAGE_NAME" | tr '[:upper:]' '[:lower:]')
+        
           xcrun xcodebuild docbuild \
-            -scheme GoodPersistence \
+            -scheme "$PACKAGE_NAME" \
             -destination 'generic/platform=iOS Simulator' \
             -derivedDataPath "$PWD/.derivedData"
 
           $(xcrun --find docc) process-archive \
-            transform-for-static-hosting "$PWD/.derivedData/Build/Products/Debug-iphonesimulator/GoodPersistence.doccarchive" \
+            transform-for-static-hosting "$PWD/.derivedData/Build/Products/Debug-iphonesimulator/${PACKAGE_NAME}.doccarchive" \
             --output-path ".docs" \
-            --hosting-base-path "doccAutomatization_iOS"
+            --hosting-base-path "$REPOSITORY_NAME"
 
           # Create index.html to redirect to the generated documentation
-          echo '<script>window.location.href += "/documentation/goodpersistence"</script>' > .docs/index.html
+          echo '<script>window.location.href += "/documentation/${PACKAGE_NAME_LOWERCASE}"</script>' > .docs/index.html
       #5
       - name: Setup Pages
         id: pages
