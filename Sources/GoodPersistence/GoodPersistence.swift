@@ -6,7 +6,7 @@
 
 public final class GoodPersistence {
 
-    /// Used for configuring the GoodPersistence monitors UPDATED TEXT
+    /// Used for configuring the GoodPersistence monitors CHANGE IN THE DOCC
     public final class Configuration {
 
         public static private(set) var monitors: [PersistenceMonitor] = []
