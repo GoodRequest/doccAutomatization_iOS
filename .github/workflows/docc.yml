@@ -45,7 +45,7 @@ jobs:
             --hosting-base-path "$REPOSITORY_NAME"
 
           # Create index.html to redirect to the generated documentation
-          echo "<script>window.location.href += '/documentation/${PACKAGE_NAME_LOWERCASE}'</script>" > .docs/index.html
+          echo '<script>window.location.href += "/documentation/'"${PACKAGE_NAME_LOWERCASE}"'"</script>' > .docs/index.html
       #5
       - name: Setup Pages
         id: pages
